@@ -15,9 +15,9 @@ class ContextParamGrailsPlugin {
 
     def author = "Jason Gritman"
     def authorEmail = "jgritman@netflix.com"
-    def title = "Plugin summary/headline"
+    def title = "Context param"
     def description = '''\\
-Brief description of the plugin.
+Automatically adds parameters specified as @ContextParam on a controller to redirect calls.
 '''
 
     // URL to the plugin's documentation
