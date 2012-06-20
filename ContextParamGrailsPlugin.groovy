@@ -25,7 +25,7 @@ Brief description of the plugin.
 
     def doWithDynamicMethods = { ctx ->
         Map<String, List<String>> controllerNamesToContextParams = [:]
-        for (controllerClass in application.controllerClasses) {
+        for (GrailsControllerClass controllerClass in application.controllerClasses) {
             Collection<String> contextParams = findContextParams(controllerClass)
             replaceRedirectMethod(controllerClass, contextParams)
             controllerNamesToContextParams[(controllerClass.logicalPropertyName)] = contextParams
@@ -47,15 +47,15 @@ Brief description of the plugin.
     }
 
     private void replaceRedirectMethod(GrailsControllerClass controllerClass, Collection<String> contextParams) {
-        def oldRedirect = controllerClass.metaClass.pickMethod("redirect", [Map] as Class[])
-        controllerClass.metaClass.redirect = { Map args ->
+        wrapMethod(controllerClass, contextParams, 'redirect')
+        wrapMethod(controllerClass, contextParams, 'chain')
+    }
+
+    private void wrapMethod(GrailsControllerClass controllerClass, Collection<String> contextParams, String name) {
+        def oldMethod = controllerClass.metaClass.pickMethod(name, [Map] as Class[])
+        controllerClass.metaClass."${name}" = { Map args ->
             appendContextParams(contextParams, args)
-            oldRedirect.invoke(delegate, args)
-        }
-        def oldChain = controllerClass.metaClass.pickMethod("chain", [Map] as Class[])
-        controllerClass.metaClass.chain = { Map args ->
-            appendContextParams(contextParams, args)
-            oldChain.invoke(delegate, args)
+            oldMethod.invoke(delegate, args)
         }
     }
 
