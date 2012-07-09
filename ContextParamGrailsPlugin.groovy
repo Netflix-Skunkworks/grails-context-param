@@ -36,6 +36,7 @@ Automatically adds parameters specified as @ContextParam on a controller to redi
     }
 
     def onChange = { event -> 
+        // Replace the redirect/chain methods again if the controller has changed
         if(event.source instanceof Class &&
                 application.isArtefactOfType(ControllerArtefactHandler.TYPE, event.source)) {
             GrailsControllerClass controllerClass = application.getArtefact(ControllerArtefactHandler.TYPE, 
@@ -46,11 +47,17 @@ Automatically adds parameters specified as @ContextParam on a controller to redi
         }
     }
 
+    /**
+     * Wraps the chain and redirect methods.
+     */ 
     private void replaceRedirectMethod(GrailsControllerClass controllerClass, Collection<String> contextParams) {
         wrapMethod(controllerClass, contextParams, 'redirect')
         wrapMethod(controllerClass, contextParams, 'chain')
     }
 
+    /**
+     * Take a method by name, and add a call to appendContextParams before that method invokation.
+     */
     private void wrapMethod(GrailsControllerClass controllerClass, Collection<String> contextParams, String name) {
         def oldMethod = controllerClass.metaClass.pickMethod(name, [Map] as Class[])
         controllerClass.metaClass."${name}" = { Map args ->
@@ -59,6 +66,9 @@ Automatically adds parameters specified as @ContextParam on a controller to redi
         }
     }
 
+    /**
+     * Add any specified context params to the params on the arguments. If there is no params object it will be created.
+     */
     private void appendContextParams(Collection<String> contextParams, Map arguments) {
         if (arguments && contextParams ) {
             // If redirect was called without a params map object then make an empty params map.
@@ -73,6 +83,9 @@ Automatically adds parameters specified as @ContextParam on a controller to redi
         }
     }
 
+    /**
+     * Find all of the @ContextParam annotions on the controller.
+     */
     private Collection<String> findContextParams(GrailsControllerClass controllerClass) {
         controllerClass.clazz.declaredAnnotations.findAll { it instanceof ContextParam }.collect { it.value() }
     }
