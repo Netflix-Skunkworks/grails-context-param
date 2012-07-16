@@ -7,20 +7,14 @@ class ContextParamGrailsPlugin {
 
     def observe = ["controllers"]
 
-    // the plugin version
     def version = "1.0"
-    // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
     def loadAfter = ['controllers']
 
     def author = "Jason Gritman"
     def authorEmail = "jgritman@netflix.com"
     def title = "Context param"
-    def description = '''\\
-Automatically adds parameters specified as @ContextParam on a controller to redirect calls.
-'''
-
-    // URL to the plugin's documentation
+    def description = 'Automatically adds parameters specified as @ContextParam on a controller to redirect calls.'
     def documentation = "http://grails.org/plugin/context-param"
 
     def doWithDynamicMethods = { ctx ->
