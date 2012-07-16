@@ -30,7 +30,7 @@ Automatically adds parameters specified as @ContextParam on a controller to redi
             replaceRedirectMethod(controllerClass, contextParams)
             controllerNamesToContextParams[(controllerClass.logicalPropertyName)] = contextParams
         }
-        application.metaClass.getControllerNamesToContextParams {
+        application.metaClass.getControllerNamesToContextParams = { ->
             controllerNamesToContextParams
         }
     }
