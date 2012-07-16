@@ -4,14 +4,13 @@
 /web-app/WEB-INF
 
 # IDE support files
-/.classpath
 /.launch
-/.project
 /.settings
 /*.launch
 /*.tmproj
 /ivy*
 /eclipse
+*.iws
 
 # default HSQL database files for production mode
 /prodDb.*
@@ -21,23 +20,17 @@
 *Db.script
 
 # logs
-/stacktrace.log
+*.log
 /test/reports
 /logs
 
-# project release file
-/*.war
-
-# plugin release file
+# plugin release file and XML metadata
 /*.zip
+/plugin.xml
 
 # older plugin install locations
-/plugins
 /web-app/plugins
 /web-app/WEB-INF/classes
 
 # "temporary" build files
 /target
-
-# other
-*.iws
