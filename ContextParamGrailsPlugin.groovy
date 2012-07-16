@@ -13,10 +13,24 @@ class ContextParamGrailsPlugin {
 
     def author = "Jason Gritman"
     def authorEmail = "jgritman@netflix.com"
-    def title = "Context param"
+    def title = "Context param plugin"
     def description = 'Automatically adds parameters specified as @ContextParam on a controller to redirect calls.'
     def documentation = "http://grails.org/plugin/context-param"
 
+    // License: one of 'APACHE', 'GPL2', 'GPL3'
+    def license = 'APACHE'
+
+    // Details of company behind the plugin (if there is one)
+    // def organization = [ name: "My Company", url: "http://www.my-company.com/" ]
+
+    // Any additional developers beyond the author specified above.
+    // def developers = [ [ name: "Joe Bloggs", email: "joe@bloggs.net" ]]
+
+    // Location of the plugin's issue tracker.
+    // def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPMYPLUGIN" ]
+
+    def scm = [url: 'https://github.com/Netflix-Skunkworks/grails-context-param']
+ 
     def doWithDynamicMethods = { ctx ->
         Map<String, List<String>> controllerNamesToContextParams = [:]
         for (GrailsControllerClass controllerClass in application.controllerClasses) {
