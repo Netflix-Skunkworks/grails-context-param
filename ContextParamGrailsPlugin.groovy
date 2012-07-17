@@ -30,7 +30,7 @@ class ContextParamGrailsPlugin {
     def authorEmail = "jgritman@netflix.com"
     def title = "Context param plugin"
     def description = 'Automatically adds parameters specified as @ContextParam on a controller to redirect calls.'
-    def documentation = "http://grails.org/plugin/context-param"
+    def documentation = "https://github.com/Netflix-Skunkworks/grails-context-param#grails-context-param-plugin"
 
     // License: one of 'APACHE', 'GPL2', 'GPL3'
     def license = 'APACHE'
